@@ -4,10 +4,17 @@ class Films:
         self.title = title # tytuł
         self.year = year #rok wydania
         self.genre = genre #gatunek
+        
 
 
         #Variables
         self._no_plays = 0
+
+
+    def __str__(self):
+        return f'{self.title}, ({self.year})'    
+    def __repr__(self):
+        return f" title = {self.title} year = {self.year}"
 
     @property
     def current_no_plays(self):
@@ -22,12 +29,7 @@ class Films:
         self.current_no_plays += step
         print(f'Liczba odtworzeń {self.title} zwiększyła się o {step}')  
         
-        
-
-    def __str__(self):
-        return f'{self.title}, ({self.year})'    
-    def __repr__(self):
-        return f" title = {self.title} year = {self.year}" 
+       
 
 film1 = Films(title = "Shrek", year ="2001", genre ="Bajka")
 film2 = Films(title = "Legion samobójców", year = "2021", genre = "Akcja")
@@ -58,27 +60,46 @@ series4 = Series(title = "Przyjaciele", year = "1994 - 2004", genre = "Sitcom")
 series5 = Series(title = "The 100", year = "2014 - " , genre = "Science - Fiction")
 series_list = [series1, series2, series3, series4, series5]
 
+
 class Library(Series): #Klasa dla filmów i seriali
-    
+    Library_list = [film_list] + [series_list]
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-    def Library_list(self, title, year):
-        library_list = [film_list] + [series_list]
-        print(f'{title} {year}')
         
 
+    def get_movies(self):
+        by_title = sorted(film_list, key=lambda film: film.title) #sortowanie
+        print(by_title)
 
+
+
+    def get_series(self):
+        by_title = sorted(series_list, key=lambda series: series.title) #sortowanie
+        print(by_title)
+
+    def search(self):
+        title_search = input("Podaj wyszukiwany tyuł: ")
+        if title_search == self.title:
+            print(self.title, self.year, self.genre)
+        else:
+            print("Nie ma takiego tytułu w bibliotece")
+            exit()
+        
 
 print(film1)
 print(film_list[0])
 print(series1)
 print(series_list[0])
 print()
-film1.next_play(10)
+film1.next_play()
 film1.current_no_plays
 print()
 series1.next_play()
 series1.current_no_plays
 print()
 
+Library.get_movies(list)
+print()
+Library.get_series(list)
+print()
+Library.search(film_list)
